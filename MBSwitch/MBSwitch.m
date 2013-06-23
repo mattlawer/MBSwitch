@@ -11,16 +11,16 @@
 
 
 @interface MBSwitch () <UIGestureRecognizerDelegate> {
-    CAShapeLayer *_knobLayer;
+    CAShapeLayer *_thumbLayer;
     CAShapeLayer *_fillLayer;
     CAShapeLayer *_backLayer;
+    BOOL _dragging;
     BOOL _on;
 }
 @property (nonatomic, assign) BOOL pressed;
-- (CGPathRef) newPathForRoundedRect:(CGRect)rect radius:(CGFloat)radius;
 - (void) setBackgroundOn:(BOOL)on animated:(BOOL)animated;
 - (void) showFillLayer:(BOOL)show animated:(BOOL)animated;
-- (CGRect) knobFrameForState:(BOOL)isOn;
+- (CGRect) thumbFrameForState:(BOOL)isOn;
 @end
 
 @implementation MBSwitch
@@ -39,58 +39,65 @@
 }
 
 - (void) configure {
+    //Check width > height
+    if (self.frame.size.height > self.frame.size.width*0.65) {
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, ceilf(0.6*self.frame.size.width));
+    }
+    
     [self setBackgroundColor:[UIColor clearColor]];
     self.onTintColor = [UIColor colorWithRed:0.27f green:0.85f blue:0.37f alpha:1.00f];
-    self.offTintColor = [UIColor colorWithRed:0.90f green:0.90f blue:0.90f alpha:1.00f];
+    self.tintColor = [UIColor colorWithRed:0.90f green:0.90f blue:0.90f alpha:1.00f];
     _on = NO;
     _pressed = NO;
+    _dragging = NO;
     
     
     _backLayer = [[CAShapeLayer layer] retain];
     _backLayer.backgroundColor = [[UIColor clearColor] CGColor];
     _backLayer.frame = self.bounds;
     _backLayer.cornerRadius = self.bounds.size.height/2.0;
-    CGPathRef path1 = [self newPathForRoundedRect:_backLayer.bounds radius:_backLayer.bounds.size.height/2.0];
+    CGPathRef path1 = [UIBezierPath bezierPathWithRoundedRect:_backLayer.bounds cornerRadius:floorf(_backLayer.bounds.size.height/2.0)].CGPath;
     _backLayer.path = path1;
-    CGPathRelease(path1);
     [_backLayer setValue:[NSNumber numberWithBool:NO] forKey:@"isOn"];
-    _backLayer.fillColor = [_offTintColor CGColor];
+    _backLayer.fillColor = [_tintColor CGColor];
     [self.layer addSublayer:_backLayer];
     
     _fillLayer = [[CAShapeLayer layer] retain];
     _fillLayer.backgroundColor = [[UIColor clearColor] CGColor];
     _fillLayer.frame = CGRectInset(self.bounds, 1.5, 1.5);
-    CGPathRef path = [self newPathForRoundedRect:_fillLayer.bounds radius:_fillLayer.bounds.size.height/2.0];
+    CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_fillLayer.bounds cornerRadius:floorf(_fillLayer.bounds.size.height/2.0)].CGPath;
     _fillLayer.path = path;
-    CGPathRelease(path);
     [_fillLayer setValue:[NSNumber numberWithBool:YES] forKey:@"isVisible"];
     _fillLayer.fillColor = [[UIColor whiteColor] CGColor];
     [self.layer addSublayer:_fillLayer];
     
     
-    _knobLayer = [[CAShapeLayer layer] retain];
-    _knobLayer.backgroundColor = [[UIColor clearColor] CGColor];
-    _knobLayer.frame = CGRectMake(1.0, 1.0, self.bounds.size.height-2.0, self.bounds.size.height-2.0);
-    _knobLayer.cornerRadius = self.bounds.size.height/2.0;
-    CGPathRef knobPath = [self newPathForRoundedRect:_knobLayer.bounds radius:_knobLayer.bounds.size.height/2.0];
-    _knobLayer.path = knobPath;
-    CGPathRelease(knobPath);
-    _knobLayer.fillColor = [UIColor whiteColor].CGColor;
-    _knobLayer.shadowColor = [UIColor blackColor].CGColor;
-    _knobLayer.shadowOffset = CGSizeMake(0.0, 3.0);
-    _knobLayer.shadowRadius = 3.0;
-    _knobLayer.shadowOpacity = 0.3;
-    [self.layer addSublayer:_knobLayer];
+    _thumbLayer = [[CAShapeLayer layer] retain];
+    _thumbLayer.backgroundColor = [[UIColor clearColor] CGColor];
+    _thumbLayer.frame = CGRectMake(1.0, 1.0, self.bounds.size.height-2.0, self.bounds.size.height-2.0);
+    _thumbLayer.cornerRadius = self.bounds.size.height/2.0;
+    CGPathRef knobPath = [UIBezierPath bezierPathWithRoundedRect:_thumbLayer.bounds cornerRadius:floorf(_thumbLayer.bounds.size.height/2.0)].CGPath;
+    _thumbLayer.path = knobPath;
+    _thumbLayer.fillColor = [UIColor whiteColor].CGColor;
+    _thumbLayer.shadowColor = [UIColor blackColor].CGColor;
+    _thumbLayer.shadowOffset = CGSizeMake(0.0, 3.0);
+    _thumbLayer.shadowRadius = 3.0;
+    _thumbLayer.shadowOpacity = 0.3;
+    [self.layer addSublayer:_thumbLayer];
     
-	UITapGestureRecognizer *tapGestureRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                            action:@selector(tapped:)] autorelease];
+	UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                            action:@selector(tapped:)];
 	[tapGestureRecognizer setDelegate:self];
 	[self addGestureRecognizer:tapGestureRecognizer];
     
-	UIPanGestureRecognizer *panGestureRecognizer = [[[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                                                            action:@selector(toggleDragged:)] autorelease];
+	UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                                                            action:@selector(toggleDragged:)];
+    //[panGestureRecognizer requireGestureRecognizerToFail:tapGestureRecognizer];
 	[panGestureRecognizer setDelegate:self];
 	[self addGestureRecognizer:panGestureRecognizer];
+    
+    [tapGestureRecognizer release];
+    [panGestureRecognizer release];
 }
 
 #pragma mark -
@@ -110,6 +117,7 @@
 	if (gesture.state == UIGestureRecognizerStateBegan)
 	{
 		self.pressed = YES;
+        _dragging = YES;
 	}
 	else if (gesture.state == UIGestureRecognizerStateChanged)
 	{
@@ -119,18 +127,18 @@
         
 		self.pressed = YES;
         
-		CGFloat newX = _knobLayer.frame.origin.x + translation.x;
+		CGFloat newX = _thumbLayer.frame.origin.x + translation.x;
 		if (newX < minToggleX) newX = minToggleX;
 		if (newX > maxToggleX) newX = maxToggleX;
-		_knobLayer.frame = CGRectMake(newX,
-                                            _knobLayer.frame.origin.y,
-                                            _knobLayer.frame.size.width,
-                                            _knobLayer.frame.size.height);
+		_thumbLayer.frame = CGRectMake(newX,
+                                            _thumbLayer.frame.origin.y,
+                                            _thumbLayer.frame.size.width,
+                                            _thumbLayer.frame.size.height);
         
-        if (CGRectGetMidX(_knobLayer.frame) > CGRectGetMidX(self.bounds)
+        if (CGRectGetMidX(_thumbLayer.frame) > CGRectGetMidX(self.bounds)
             && ![[_backLayer valueForKey:@"isOn"] boolValue]) {
             [self setBackgroundOn:YES animated:YES];
-        }else if (CGRectGetMidX(_knobLayer.frame) < CGRectGetMidX(self.bounds)
+        }else if (CGRectGetMidX(_thumbLayer.frame) < CGRectGetMidX(self.bounds)
                   && [[_backLayer valueForKey:@"isOn"] boolValue]){
             [self setBackgroundOn:NO animated:YES];
         }
@@ -140,12 +148,12 @@
 	}
 	else if (gesture.state == UIGestureRecognizerStateEnded)
 	{
-		CGFloat toggleCenter = CGRectGetMidX(_knobLayer.frame);
+		CGFloat toggleCenter = CGRectGetMidX(_thumbLayer.frame);
         [self setOn:(toggleCenter > CGRectGetMidX(self.bounds)) animated:YES];
+        _dragging = NO;
         self.pressed = NO;
-		
 	}
-        
+    
 	CGPoint locationOfTouch = [gesture locationInView:self];
 	if (CGRectContainsPoint(self.bounds, locationOfTouch))
 		[self sendActionsForControlEvents:UIControlEventTouchDragInside];
@@ -165,22 +173,23 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	[super touchesEnded:touches withEvent:event];
-    
-    self.pressed = NO;
-    
+    if (!_dragging) {
+        self.pressed = NO;
+    }
 	[self sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	[super touchesCancelled:touches withEvent:event];
-    
+    if (!_dragging) {
+        self.pressed = NO;
+    }
 	[self sendActionsForControlEvents:UIControlEventTouchUpOutside];
 }
 
 - (void) setPressed:(BOOL)pressed {
-    if (_pressed != pressed
-        || ([[_fillLayer valueForKey:@"isVisible"] boolValue] && pressed)) {
+    if (_pressed != pressed) {
         _pressed = pressed;
         
         if (!_on) {
@@ -193,16 +202,19 @@
     BOOL isOn = [[_backLayer valueForKey:@"isOn"] boolValue];
     if (on != isOn) {
         if (animated) {
-            [CATransaction begin];
-            [CATransaction setAnimationDuration:0.2];
-            [CATransaction setDisableActions:NO];
-            _backLayer.fillColor = on ? _onTintColor.CGColor : _offTintColor.CGColor;
+            CABasicAnimation *animateColor = [CABasicAnimation animationWithKeyPath:@"fillColor"];
+            animateColor.duration = 0.22;
+            animateColor.fromValue = on ? (id)_tintColor.CGColor : (id)_onTintColor.CGColor;
+            animateColor.toValue = on ? (id)_onTintColor.CGColor : (id)_tintColor.CGColor;
+            animateColor.removedOnCompletion = NO;
+            animateColor.fillMode = kCAFillModeForwards;
             [_backLayer setValue:[NSNumber numberWithBool:on] forKey:@"isOn"];
+            [_backLayer addAnimation:animateColor forKey:@"animateColor"];
             [CATransaction commit];
         }else {
-            //[CATransaction setDisableActions:YES];
-            _backLayer.fillColor = on ? _onTintColor.CGColor : _offTintColor.CGColor;
+            [_backLayer removeAllAnimations];
             [_backLayer setValue:[NSNumber numberWithBool:on] forKey:@"isOn"];
+            _backLayer.fillColor = on ? _onTintColor.CGColor : _tintColor.CGColor;
         }
     }
 }
@@ -214,13 +226,14 @@
         CGFloat scale = show ? 1.0 : 0.0;
         if (animated) {
             CGFloat from = show ? 0.0 : 1.0;
-            CABasicAnimation *theAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-            theAnimation.duration = 0.22;
-            theAnimation.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(from, from, 1.0)];
-            theAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(scale, scale, 1.0)];
-            theAnimation.removedOnCompletion = NO;
-            theAnimation.fillMode = kCAFillModeForwards;
-            [_fillLayer addAnimation:theAnimation forKey:@"animateScale"];
+            CABasicAnimation *animateScale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+            animateScale.duration = 0.22;
+            animateScale.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(from, from, 1.0)];
+            animateScale.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(scale, scale, 1.0)];
+            animateScale.removedOnCompletion = NO;
+            animateScale.fillMode = kCAFillModeForwards;
+            animateScale.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            [_fillLayer addAnimation:animateScale forKey:@"animateScale"];
         }else {
             [_fillLayer removeAllAnimations];
             _fillLayer.transform = CATransform3DMakeScale(scale,scale,1.0);
@@ -246,30 +259,22 @@
     if (animated) {
         [CATransaction begin];
         [CATransaction setAnimationDuration:0.3];
-    }
-    [CATransaction setDisableActions:!animated];
-    [self setBackgroundOn:_on animated:animated];
-    _knobLayer.frame = [self knobFrameForState:_on];
-    if (animated) {
+        [CATransaction setDisableActions:NO];
+        _thumbLayer.frame = [self thumbFrameForState:_on];
         [CATransaction commit];
+    }else {
+        [CATransaction setDisableActions:YES];
+        _thumbLayer.frame = [self thumbFrameForState:_on];
     }
+    [self setBackgroundOn:_on animated:animated];
     [self showFillLayer:!_on animated:animated];
 }
 
-- (void) setThumbTintColor:(UIColor *)thumbTintColor {
-    _knobLayer.fillColor = [thumbTintColor CGColor];
-}
-
-- (UIColor *) thumbTintColor {
-    return [UIColor colorWithCGColor:_knobLayer.fillColor];
-}
-
 - (void) setTintColor:(UIColor *)tintColor {
-    _fillLayer.fillColor = [tintColor CGColor];
-}
-
-- (UIColor *) tintColor {
-    return [UIColor colorWithCGColor:_fillLayer.fillColor];
+    _tintColor = [tintColor retain];
+    if (![[_backLayer valueForKey:@"isOn"] boolValue]) {
+        _backLayer.fillColor = [_tintColor CGColor];
+    }
 }
 
 - (void) setOnTintColor:(UIColor *)onTintColor {
@@ -280,60 +285,33 @@
 }
 
 - (void) setOffTintColor:(UIColor *)offTintColor {
-    _offTintColor = [offTintColor retain];
-    if (![[_backLayer valueForKey:@"isOn"] boolValue]) {
-        _backLayer.fillColor = [_offTintColor CGColor];
-    }
+    _fillLayer.fillColor = [offTintColor CGColor];
 }
 
+- (UIColor *) offTintColor {
+    return [UIColor colorWithCGColor:_fillLayer.fillColor];
+}
 
+- (void) setThumbTintColor:(UIColor *)thumbTintColor {
+    _thumbLayer.fillColor = [thumbTintColor CGColor];
+}
 
-- (CGRect) knobFrameForState:(BOOL)isOn {
-    return _knobLayer.frame = CGRectMake(isOn ? self.bounds.size.width-self.bounds.size.height+1.0 : 1.0,
+- (UIColor *) thumbTintColor {
+    return [UIColor colorWithCGColor:_thumbLayer.fillColor];
+}
+
+- (CGRect) thumbFrameForState:(BOOL)isOn {
+    return CGRectMake(isOn ? self.bounds.size.width-self.bounds.size.height+1.0 : 1.0,
                                          1.0,
                                          self.bounds.size.height-2.0,
                                          self.bounds.size.height-2.0);
 }
 
-#pragma mark Paths
-
-- (CGPathRef) newPathForRoundedRect:(CGRect)rect radius:(CGFloat)radius
-{
-	CGMutablePathRef retPath = CGPathCreateMutable();
-    
-	CGRect innerRect = CGRectInset(rect, radius, radius);
-    
-	CGFloat inside_right = innerRect.origin.x + innerRect.size.width;
-	CGFloat outside_right = rect.origin.x + rect.size.width;
-	CGFloat inside_bottom = innerRect.origin.y + innerRect.size.height;
-	CGFloat outside_bottom = rect.origin.y + rect.size.height;
-    
-	CGFloat inside_top = innerRect.origin.y;
-	CGFloat outside_top = rect.origin.y;
-	CGFloat outside_left = rect.origin.x;
-    
-	CGPathMoveToPoint(retPath, NULL, innerRect.origin.x, outside_top);
-    
-	CGPathAddLineToPoint(retPath, NULL, inside_right, outside_top);
-	CGPathAddArcToPoint(retPath, NULL, outside_right, outside_top, outside_right, inside_top, radius);
-	CGPathAddLineToPoint(retPath, NULL, outside_right, inside_bottom);
-	CGPathAddArcToPoint(retPath, NULL,  outside_right, outside_bottom, inside_right, outside_bottom, radius);
-    
-	CGPathAddLineToPoint(retPath, NULL, innerRect.origin.x, outside_bottom);
-	CGPathAddArcToPoint(retPath, NULL,  outside_left, outside_bottom, outside_left, inside_bottom, radius);
-	CGPathAddLineToPoint(retPath, NULL, outside_left, inside_top);
-	CGPathAddArcToPoint(retPath, NULL,  outside_left, outside_top, innerRect.origin.x, outside_top, radius);
-    
-	CGPathCloseSubpath(retPath);
-    
-	return retPath;
-}
-
 - (void) dealloc {
+    [_tintColor release], _tintColor = nil;
     [_onTintColor release], _onTintColor = nil;
-    [_offTintColor release], _offTintColor = nil;
     
-    [_knobLayer release], _knobLayer = nil;
+    [_thumbLayer release], _thumbLayer = nil;
     [_fillLayer release], _fillLayer = nil;
     [_backLayer release], _backLayer = nil;
     [super dealloc];

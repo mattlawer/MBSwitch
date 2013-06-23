@@ -13,18 +13,27 @@ Usage
 
 1) Create the MBSwitch with default size 51x31.
 
-	MBSwitch *_mbswitch2 = [[MBSwitch alloc] initWithFrame:CGRectMake(20.0, 129.0, 51.0, 31.0)];
+	// Will resize if you set the height > 0.65*width
+	MBSwitch *_mbswitch = [[MBSwitch alloc] initWithFrame:CGRectMake(20.0, 129.0, 51.0, 31.0)];
     
 
 2) Customize the appearance
 	
-    [_mbswitch2 setOnTintColor:[UIColor colorWithRed:0.23f green:0.35f blue:0.60f alpha:1.00f]];
-    [_mbswitch2 setOffTintColor:[UIColor colorWithRed:0.91f green:0.30f blue:0.24f alpha:1.00f]];
-    [_mbswitch3 setThumbTintColor:[UIColor grayColor]];
+	// Set the OFF border color
+	[_mbswitch setTintColor:[UIColor colorWithRed:0.58f green:0.65f blue:0.65f alpha:1.00f]]
+	
+	// Set the ON tint color
+    [_mbswitch setOnTintColor:[UIColor colorWithRed:0.23f green:0.35f blue:0.60f alpha:1.00f]];
+    
+    // Set the OFF fill color
+    [_mbswitch setOffTintColor:[UIColor colorWithRed:0.91f green:0.30f blue:0.24f alpha:1.00f]];
+    
+    // Set the thumb tint color
+    [_mbswitch setThumbTintColor:[UIColor grayColor]];
 
 3) Add the MBSwitch to your view 
 	
-	[self.view addSubview:_mbswitch2];
+	[self.view addSubview:_mbswitch];
     
     
 Example
@@ -40,7 +49,7 @@ With some colors
 License
 -------
 
-Copyright (c) 2012, Mathieu Bolard
+Copyright (c) 2013, Mathieu Bolard
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
