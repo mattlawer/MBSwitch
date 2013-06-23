@@ -22,7 +22,7 @@ Usage
     [_mbswitch2 setOffTintColor:[UIColor colorWithRed:0.91f green:0.30f blue:0.24f alpha:1.00f]];
     [_mbswitch3 setThumbTintColor:[UIColor grayColor]];
 
-3) Add the MBSwith to your view 
+3) Add the MBSwitch to your view 
 	
 	[self.view addSubview:_mbswitch2];
     
