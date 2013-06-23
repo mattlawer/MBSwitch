@@ -27,8 +27,6 @@
     
     [_mbswitch3 setThumbTintColor:[UIColor colorWithRed:0.17f green:0.72f blue:0.93f alpha:1.00f]];
     [_mbswitch4 setOnTintColor:[UIColor colorWithRed:0.17f green:0.72f blue:0.93f alpha:1.00f]];
-
-    [_mbswitch addTarget:self action:@selector(switchT:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)didReceiveMemoryWarning

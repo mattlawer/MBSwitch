@@ -141,8 +141,9 @@
 	else if (gesture.state == UIGestureRecognizerStateEnded)
 	{
 		CGFloat toggleCenter = CGRectGetMidX(_knobLayer.frame);
+        [self setOn:(toggleCenter > CGRectGetMidX(self.bounds)) animated:YES];
         self.pressed = NO;
-		[self setOn:(toggleCenter > CGRectGetMidX(self.bounds)) animated:YES];
+		
 	}
         
 	CGPoint locationOfTouch = [gesture locationInView:self];
@@ -199,6 +200,7 @@
             [_backLayer setValue:[NSNumber numberWithBool:on] forKey:@"isOn"];
             [CATransaction commit];
         }else {
+            //[CATransaction setDisableActions:YES];
             _backLayer.fillColor = on ? _onTintColor.CGColor : _offTintColor.CGColor;
             [_backLayer setValue:[NSNumber numberWithBool:on] forKey:@"isOn"];
         }
@@ -248,7 +250,7 @@
         [CATransaction setAnimationDuration:0.3];
     }
     [CATransaction setDisableActions:!animated];
-    [self setBackgroundOn:_on animated:NO];
+    [self setBackgroundOn:_on animated:animated];
     _knobLayer.frame = [self knobFrameForState:_on];
     if (animated) {
         [CATransaction commit];
