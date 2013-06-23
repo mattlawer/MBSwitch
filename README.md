@@ -32,8 +32,9 @@ Example
 
 With some colors
 
-<img width=618 src="https://raw.github.com/mattlawer/MBSwitch/master/README/screen1.png"/>
+<img width=147 src="https://raw.github.com/mattlawer/MBSwitch/master/README/example.gif"/>
 <img width=147 src="https://raw.github.com/mattlawer/MBSwitch/master/README/tint_example.gif"/>
+<img width=147 src="https://raw.github.com/mattlawer/MBSwitch/master/README/tint_example2.gif"/>
 
     
 License
