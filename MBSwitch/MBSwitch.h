@@ -12,7 +12,7 @@
 
 @property(nonatomic, retain) UIColor *onTintColor;
 @property(nonatomic, retain) UIColor *offTintColor;
-@property(nonatomic, retain) UIColor *tintColor;
+@property(nonatomic, assign) UIColor *tintColor;
 @property(nonatomic, assign) UIColor *thumbTintColor;
 
 @property(nonatomic,getter=isOn) BOOL on;

@@ -210,23 +210,21 @@
 - (void) showFillLayer:(BOOL)show animated:(BOOL)animated {
     BOOL isVisible = [[_fillLayer valueForKey:@"isVisible"] boolValue];
     if (isVisible != show) {
-        CGPathRef visiblePath = [self newPathForRoundedRect:_fillLayer.bounds radius:_fillLayer.bounds.size.height/2.0];
-        CGPathRef hiddenPath = CGPathCreateWithRect(CGRectMake(_fillLayer.bounds.size.width/2.0, _fillLayer.bounds.size.height/2.0, 0.0, 0.0), NULL);
         [_fillLayer setValue:[NSNumber numberWithBool:show] forKey:@"isVisible"];
+        CGFloat scale = show ? 1.0 : 0.0;
         if (animated) {
-            CABasicAnimation *pathAnim = [CABasicAnimation animationWithKeyPath:@"path"];
-            pathAnim.fromValue = show ? (id)hiddenPath : (id)visiblePath;
-            pathAnim.toValue = show ? (id)visiblePath : (id)hiddenPath;
-            pathAnim.duration = .22;
-            pathAnim.fillMode = kCAFillModeForwards;
-            pathAnim.removedOnCompletion = NO;
-            [_fillLayer addAnimation:pathAnim forKey:@"animatePath"];
+            CGFloat from = show ? 0.0 : 1.0;
+            CABasicAnimation *theAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+            theAnimation.duration = 0.22;
+            theAnimation.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(from, from, 1.0)];
+            theAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(scale, scale, 1.0)];
+            theAnimation.removedOnCompletion = NO;
+            theAnimation.fillMode = kCAFillModeForwards;
+            [_fillLayer addAnimation:theAnimation forKey:@"animateScale"];
         }else {
             [_fillLayer removeAllAnimations];
-            _fillLayer.path = show ? visiblePath : hiddenPath;
+            _fillLayer.transform = CATransform3DMakeScale(scale,scale,1.0);
         }
-        CGPathRelease(visiblePath);
-        CGPathRelease(hiddenPath);
     }
 }
 
@@ -266,6 +264,14 @@
     return [UIColor colorWithCGColor:_knobLayer.fillColor];
 }
 
+- (void) setTintColor:(UIColor *)tintColor {
+    _fillLayer.fillColor = [tintColor CGColor];
+}
+
+- (UIColor *) tintColor {
+    return [UIColor colorWithCGColor:_fillLayer.fillColor];
+}
+
 - (void) setOnTintColor:(UIColor *)onTintColor {
     _onTintColor = [onTintColor retain];
     if ([[_backLayer valueForKey:@"isOn"] boolValue]) {
@@ -279,6 +285,8 @@
         _backLayer.fillColor = [_offTintColor CGColor];
     }
 }
+
+
 
 - (CGRect) knobFrameForState:(BOOL)isOn {
     return _knobLayer.frame = CGRectMake(isOn ? self.bounds.size.width-self.bounds.size.height+1.0 : 1.0,
@@ -324,7 +332,6 @@
 - (void) dealloc {
     [_onTintColor release], _onTintColor = nil;
     [_offTintColor release], _offTintColor = nil;
-    [_tintColor release], _tintColor = nil;
     
     [_knobLayer release], _knobLayer = nil;
     [_fillLayer release], _fillLayer = nil;

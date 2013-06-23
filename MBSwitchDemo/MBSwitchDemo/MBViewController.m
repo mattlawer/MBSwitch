@@ -25,6 +25,7 @@
     [_mbswitch2 setOffTintColor:[UIColor colorWithRed:0.91f green:0.30f blue:0.24f alpha:1.00f]];
     [self.view addSubview:_mbswitch2];
     
+    [_mbswitch3 setTintColor:[UIColor darkGrayColor]];
     [_mbswitch3 setThumbTintColor:[UIColor colorWithRed:0.17f green:0.72f blue:0.93f alpha:1.00f]];
     [_mbswitch4 setOnTintColor:[UIColor colorWithRed:0.17f green:0.72f blue:0.93f alpha:1.00f]];
 }
