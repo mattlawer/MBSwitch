@@ -1,0 +1,324 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4EAF1B1817763C730038EA5C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EAF1B1717763C730038EA5C /* UIKit.framework */; };
+		4EAF1B1A17763C730038EA5C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EAF1B1917763C730038EA5C /* Foundation.framework */; };
+		4EAF1B1C17763C730038EA5C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EAF1B1B17763C730038EA5C /* CoreGraphics.framework */; };
+		4EAF1B2217763C730038EA5C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EAF1B2017763C730038EA5C /* InfoPlist.strings */; };
+		4EAF1B2417763C730038EA5C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF1B2317763C730038EA5C /* main.m */; };
+		4EAF1B2817763C730038EA5C /* MBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF1B2717763C730038EA5C /* MBAppDelegate.m */; };
+		4EAF1B2A17763C730038EA5C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EAF1B2917763C730038EA5C /* Default.png */; };
+		4EAF1B2C17763C730038EA5C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EAF1B2B17763C730038EA5C /* Default@2x.png */; };
+		4EAF1B2E17763C730038EA5C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EAF1B2D17763C730038EA5C /* Default-568h@2x.png */; };
+		4EAF1B3117763C730038EA5C /* MBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF1B3017763C730038EA5C /* MBViewController.m */; };
+		4EAF1B3417763C730038EA5C /* MBViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EAF1B3217763C730038EA5C /* MBViewController.xib */; };
+		4EAF1B3F17763DE80038EA5C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EAF1B3E17763DE80038EA5C /* QuartzCore.framework */; };
+		4EAF1B431776FE4D0038EA5C /* MBSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF1B421776FE4D0038EA5C /* MBSwitch.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4EAF1B1417763C730038EA5C /* MBSwitchDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MBSwitchDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EAF1B1717763C730038EA5C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4EAF1B1917763C730038EA5C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4EAF1B1B17763C730038EA5C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4EAF1B1F17763C730038EA5C /* MBSwitchDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MBSwitchDemo-Info.plist"; sourceTree = "<group>"; };
+		4EAF1B2117763C730038EA5C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4EAF1B2317763C730038EA5C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4EAF1B2517763C730038EA5C /* MBSwitchDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MBSwitchDemo-Prefix.pch"; sourceTree = "<group>"; };
+		4EAF1B2617763C730038EA5C /* MBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBAppDelegate.h; sourceTree = "<group>"; };
+		4EAF1B2717763C730038EA5C /* MBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBAppDelegate.m; sourceTree = "<group>"; };
+		4EAF1B2917763C730038EA5C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		4EAF1B2B17763C730038EA5C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		4EAF1B2D17763C730038EA5C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4EAF1B2F17763C730038EA5C /* MBViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBViewController.h; sourceTree = "<group>"; };
+		4EAF1B3017763C730038EA5C /* MBViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBViewController.m; sourceTree = "<group>"; };
+		4EAF1B3317763C730038EA5C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MBViewController.xib; sourceTree = "<group>"; };
+		4EAF1B3E17763DE80038EA5C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4EAF1B411776FE4D0038EA5C /* MBSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSwitch.h; sourceTree = "<group>"; };
+		4EAF1B421776FE4D0038EA5C /* MBSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSwitch.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4EAF1B1117763C730038EA5C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EAF1B3F17763DE80038EA5C /* QuartzCore.framework in Frameworks */,
+				4EAF1B1817763C730038EA5C /* UIKit.framework in Frameworks */,
+				4EAF1B1A17763C730038EA5C /* Foundation.framework in Frameworks */,
+				4EAF1B1C17763C730038EA5C /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4EAF1B0B17763C730038EA5C = {
+			isa = PBXGroup;
+			children = (
+				4EAF1B401776FE4D0038EA5C /* MBSwitch */,
+				4EAF1B1D17763C730038EA5C /* MBSwitchDemo */,
+				4EAF1B1617763C730038EA5C /* Frameworks */,
+				4EAF1B1517763C730038EA5C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4EAF1B1517763C730038EA5C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4EAF1B1417763C730038EA5C /* MBSwitchDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4EAF1B1617763C730038EA5C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4EAF1B1717763C730038EA5C /* UIKit.framework */,
+				4EAF1B1917763C730038EA5C /* Foundation.framework */,
+				4EAF1B1B17763C730038EA5C /* CoreGraphics.framework */,
+				4EAF1B3E17763DE80038EA5C /* QuartzCore.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4EAF1B1D17763C730038EA5C /* MBSwitchDemo */ = {
+			isa = PBXGroup;
+			children = (
+				4EAF1B2617763C730038EA5C /* MBAppDelegate.h */,
+				4EAF1B2717763C730038EA5C /* MBAppDelegate.m */,
+				4EAF1B2F17763C730038EA5C /* MBViewController.h */,
+				4EAF1B3017763C730038EA5C /* MBViewController.m */,
+				4EAF1B3217763C730038EA5C /* MBViewController.xib */,
+				4EAF1B1E17763C730038EA5C /* Supporting Files */,
+			);
+			path = MBSwitchDemo;
+			sourceTree = "<group>";
+		};
+		4EAF1B1E17763C730038EA5C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4EAF1B1F17763C730038EA5C /* MBSwitchDemo-Info.plist */,
+				4EAF1B2017763C730038EA5C /* InfoPlist.strings */,
+				4EAF1B2317763C730038EA5C /* main.m */,
+				4EAF1B2517763C730038EA5C /* MBSwitchDemo-Prefix.pch */,
+				4EAF1B2917763C730038EA5C /* Default.png */,
+				4EAF1B2B17763C730038EA5C /* Default@2x.png */,
+				4EAF1B2D17763C730038EA5C /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4EAF1B401776FE4D0038EA5C /* MBSwitch */ = {
+			isa = PBXGroup;
+			children = (
+				4EAF1B411776FE4D0038EA5C /* MBSwitch.h */,
+				4EAF1B421776FE4D0038EA5C /* MBSwitch.m */,
+			);
+			name = MBSwitch;
+			path = ../MBSwitch;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4EAF1B1317763C730038EA5C /* MBSwitchDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4EAF1B3717763C730038EA5C /* Build configuration list for PBXNativeTarget "MBSwitchDemo" */;
+			buildPhases = (
+				4EAF1B1017763C730038EA5C /* Sources */,
+				4EAF1B1117763C730038EA5C /* Frameworks */,
+				4EAF1B1217763C730038EA5C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MBSwitchDemo;
+			productName = MBSwitchDemo;
+			productReference = 4EAF1B1417763C730038EA5C /* MBSwitchDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4EAF1B0C17763C730038EA5C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = MB;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Mathieu Bolard";
+			};
+			buildConfigurationList = 4EAF1B0F17763C730038EA5C /* Build configuration list for PBXProject "MBSwitchDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4EAF1B0B17763C730038EA5C;
+			productRefGroup = 4EAF1B1517763C730038EA5C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4EAF1B1317763C730038EA5C /* MBSwitchDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4EAF1B1217763C730038EA5C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EAF1B2217763C730038EA5C /* InfoPlist.strings in Resources */,
+				4EAF1B2A17763C730038EA5C /* Default.png in Resources */,
+				4EAF1B2C17763C730038EA5C /* Default@2x.png in Resources */,
+				4EAF1B2E17763C730038EA5C /* Default-568h@2x.png in Resources */,
+				4EAF1B3417763C730038EA5C /* MBViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4EAF1B1017763C730038EA5C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EAF1B2417763C730038EA5C /* main.m in Sources */,
+				4EAF1B2817763C730038EA5C /* MBAppDelegate.m in Sources */,
+				4EAF1B3117763C730038EA5C /* MBViewController.m in Sources */,
+				4EAF1B431776FE4D0038EA5C /* MBSwitch.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4EAF1B2017763C730038EA5C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4EAF1B2117763C730038EA5C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4EAF1B3217763C730038EA5C /* MBViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4EAF1B3317763C730038EA5C /* en */,
+			);
+			name = MBViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4EAF1B3517763C730038EA5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4EAF1B3617763C730038EA5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4EAF1B3817763C730038EA5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MBSwitchDemo/MBSwitchDemo-Prefix.pch";
+				INFOPLIST_FILE = "MBSwitchDemo/MBSwitchDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4EAF1B3917763C730038EA5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MBSwitchDemo/MBSwitchDemo-Prefix.pch";
+				INFOPLIST_FILE = "MBSwitchDemo/MBSwitchDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4EAF1B0F17763C730038EA5C /* Build configuration list for PBXProject "MBSwitchDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4EAF1B3517763C730038EA5C /* Debug */,
+				4EAF1B3617763C730038EA5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4EAF1B3717763C730038EA5C /* Build configuration list for PBXNativeTarget "MBSwitchDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4EAF1B3817763C730038EA5C /* Debug */,
+				4EAF1B3917763C730038EA5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4EAF1B0C17763C730038EA5C /* Project object */;
+}
