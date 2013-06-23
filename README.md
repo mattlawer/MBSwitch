@@ -5,7 +5,7 @@ MBSwitch is an iOS style UISwitch working with iOS < 7<br />
 You couls set the 'onTintColor', 'offTintColor' and the 'thumbTintColor' of your choice.<br />
 It works with iPhone, iPod Touch or iPad, with retina display or not.<br />
 
-<img width=580 src="https://raw.github.com/mattlawer/MBSwitch/master/README/anim.gif"/>
+<img width=600 src="https://raw.github.com/mattlawer/MBSwitch/master/README/anim.gif"/>
 
 
 Usage
