@@ -18,7 +18,9 @@
 }
 @property (nonatomic, assign) BOOL pressed;
 - (CGPathRef) newPathForRoundedRect:(CGRect)rect radius:(CGFloat)radius;
+- (void) setBackgroundOn:(BOOL)on animated:(BOOL)animated;
 - (void) showFillLayer:(BOOL)show animated:(BOOL)animated;
+- (CGRect) knobFrameForState:(BOOL)isOn;
 @end
 
 @implementation MBSwitch
