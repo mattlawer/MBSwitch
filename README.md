@@ -1,7 +1,7 @@
 MBSwitch
 ========
 
-BMSwitch is an iOS style UISwitch working with iOS < 7<br />
+MBSwitch is an iOS style UISwitch working with iOS < 7<br />
 You couls set the 'onTintColor', 'offTintColor' and the 'thumbTintColor' of your choice.<br />
 It works with iPhone, iPod Touch or iPad, with retina display or not.<br />
 
