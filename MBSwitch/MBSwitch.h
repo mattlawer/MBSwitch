@@ -17,9 +17,8 @@
 
 @property(nonatomic,getter=isOn) BOOL on;
 
-- (id)initWithFrame:(CGRect)frame;              // This class enforces a size appropriate for the control. The frame size is ignored.
+- (id)initWithFrame:(CGRect)frame;
 
-- (void)setOn:(BOOL)on animated:(BOOL)animated; // does not send action
-
+- (void)setOn:(BOOL)on animated:(BOOL)animated;
 
 @end
