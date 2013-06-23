@@ -32,7 +32,7 @@ Example
 
 With some colors
 
-<img width=618 src="https://github.com/mattlawer/MBSwitch/README/screen1.png"/>
+<img width=618 src="https://raw.github.com/mattlawer/MBSwitch/master/README/screen1.png"/>
 
     
 License
