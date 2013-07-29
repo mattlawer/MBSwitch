@@ -35,6 +35,8 @@
 }
 
 - (void) awakeFromNib {
+    [super awakeFromNib];
+    [self layoutIfNeeded];
     [self configure];
 }
 
