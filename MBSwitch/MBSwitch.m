@@ -119,16 +119,18 @@
         _on = on;
         [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
+
+    [CATransaction begin];
     if (animated) {
-        [CATransaction begin];
         [CATransaction setAnimationDuration:0.3];
         [CATransaction setDisableActions:NO];
         _thumbLayer.frame = [self thumbFrameForState:_on];
-        [CATransaction commit];
     }else {
         [CATransaction setDisableActions:YES];
         _thumbLayer.frame = [self thumbFrameForState:_on];
     }
+    [CATransaction commit];
+
     [self setBackgroundOn:_on animated:animated];
     [self showFillLayer:!_on animated:animated];
 }
