@@ -189,6 +189,7 @@
 #pragma mark Appearance
 
 - (void) setTintColor:(UIColor *)tintColor {
+    [_tintColor autorelease];
     _tintColor = [tintColor retain];
     if (![[_backLayer valueForKey:@"isOn"] boolValue]) {
         _backLayer.fillColor = [_tintColor CGColor];
@@ -196,6 +197,7 @@
 }
 
 - (void) setOnTintColor:(UIColor *)onTintColor {
+    [_onTintColor autorelease];
     _onTintColor = [onTintColor retain];
     if ([[_backLayer valueForKey:@"isOn"] boolValue]) {
         _backLayer.fillColor = [_onTintColor CGColor];
