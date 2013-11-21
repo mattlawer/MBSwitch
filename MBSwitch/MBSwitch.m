@@ -79,7 +79,7 @@
     _thumbLayer = [[CAShapeLayer layer] retain];
     _thumbLayer.backgroundColor = [[UIColor clearColor] CGColor];
     _thumbLayer.frame = CGRectMake(1.0, 1.0, self.bounds.size.height-2.0, self.bounds.size.height-2.0);
-    _thumbLayer.cornerRadius = self.bounds.size.height/2.0;
+    _thumbLayer.cornerRadius = _thumbLayer.frame.size.height/2.0;
     CGPathRef knobPath = [UIBezierPath bezierPathWithRoundedRect:_thumbLayer.bounds cornerRadius:floorf(_thumbLayer.bounds.size.height/2.0)].CGPath;
     _thumbLayer.path = knobPath;
     _thumbLayer.fillColor = [UIColor whiteColor].CGColor;
