@@ -34,10 +34,12 @@
     return self;
 }
 
-- (void) awakeFromNib {
-    [super awakeFromNib];
-    [self layoutIfNeeded];
-    [self configure];
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if( (self = [super initWithCoder:aDecoder]) ){
+        [self layoutIfNeeded];
+        [self configure];
+    }
+    return self;
 }
 
 - (void) configure {
