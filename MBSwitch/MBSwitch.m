@@ -211,7 +211,7 @@
 - (void) setOnTintColor:(UIColor *)onTintColor {
     [_onTintColor autorelease];
     _onTintColor = [onTintColor retain];
-    [self setBacklayerTintColorIfNeeded];
+    [self setBacklayerOnTintColorIfNeeded];
 }
 
 - (void)setBacklayerOnTintColorIfNeeded
@@ -235,6 +235,12 @@
 
 - (UIColor *) thumbTintColor {
     return [UIColor colorWithCGColor:_thumbLayer.fillColor];
+}
+
+- (void) setEnabled:(BOOL)enabled
+{
+    self.alpha = enabled ? 1.f : .5f;
+    [super setEnabled:enabled];
 }
 
 #pragma mark -
