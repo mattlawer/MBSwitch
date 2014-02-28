@@ -7,6 +7,7 @@
 //
 
 #import "MBViewController.h"
+#import "MBDemoAppearanceContainer.h"
 
 @interface MBViewController () {
 }
@@ -19,6 +20,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    MBSwitch *switchAppearanceProxy = [MBSwitch appearanceWhenContainedIn:[MBDemoAppearanceContainer class], nil];
+    
+    [switchAppearanceProxy setTintColor:[UIColor yellowColor]];
+    [switchAppearanceProxy setOnTintColor:[UIColor orangeColor]];
     
     self.mbswitch2 = [[MBSwitch alloc] initWithFrame:CGRectMake(20.0, 129.0, 51.0, 31.0)];
     [_mbswitch2 setOnTintColor:[UIColor colorWithRed:0.23f green:0.35f blue:0.60f alpha:1.00f]];

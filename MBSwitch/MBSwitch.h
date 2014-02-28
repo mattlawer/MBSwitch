@@ -10,10 +10,10 @@
 
 @interface MBSwitch : UIControl
 
-@property(nonatomic, retain) UIColor *tintColor;
-@property(nonatomic, retain) UIColor *onTintColor;
-@property(nonatomic, assign) UIColor *offTintColor;
-@property(nonatomic, assign) UIColor *thumbTintColor;
+@property(nonatomic, retain) UIColor *tintColor UI_APPEARANCE_SELECTOR;
+@property(nonatomic, retain) UIColor *onTintColor UI_APPEARANCE_SELECTOR;
+@property(nonatomic, assign) UIColor *offTintColor UI_APPEARANCE_SELECTOR;
+@property(nonatomic, assign) UIColor *thumbTintColor UI_APPEARANCE_SELECTOR;
 
 @property(nonatomic,getter=isOn) BOOL on;
 

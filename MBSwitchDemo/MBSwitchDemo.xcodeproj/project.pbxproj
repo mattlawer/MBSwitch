@@ -20,6 +20,7 @@
 		4EAF1B3417763C730038EA5C /* MBViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EAF1B3217763C730038EA5C /* MBViewController.xib */; };
 		4EAF1B3F17763DE80038EA5C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EAF1B3E17763DE80038EA5C /* QuartzCore.framework */; };
 		4EAF1B431776FE4D0038EA5C /* MBSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF1B421776FE4D0038EA5C /* MBSwitch.m */; };
+		A7A8B4B518A4F1CA0098E018 /* MBDemoAppearanceContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A8B4B418A4F1CA0098E018 /* MBDemoAppearanceContainer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,8 @@
 		4EAF1B3E17763DE80038EA5C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4EAF1B411776FE4D0038EA5C /* MBSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSwitch.h; sourceTree = "<group>"; };
 		4EAF1B421776FE4D0038EA5C /* MBSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSwitch.m; sourceTree = "<group>"; };
+		A7A8B4B318A4F1CA0098E018 /* MBDemoAppearanceContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBDemoAppearanceContainer.h; sourceTree = "<group>"; };
+		A7A8B4B418A4F1CA0098E018 /* MBDemoAppearanceContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBDemoAppearanceContainer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +100,8 @@
 				4EAF1B3017763C730038EA5C /* MBViewController.m */,
 				4EAF1B3217763C730038EA5C /* MBViewController.xib */,
 				4EAF1B1E17763C730038EA5C /* Supporting Files */,
+				A7A8B4B318A4F1CA0098E018 /* MBDemoAppearanceContainer.h */,
+				A7A8B4B418A4F1CA0098E018 /* MBDemoAppearanceContainer.m */,
 			);
 			path = MBSwitchDemo;
 			sourceTree = "<group>";
@@ -196,6 +201,7 @@
 				4EAF1B2817763C730038EA5C /* MBAppDelegate.m in Sources */,
 				4EAF1B3117763C730038EA5C /* MBViewController.m in Sources */,
 				4EAF1B431776FE4D0038EA5C /* MBSwitch.m in Sources */,
+				A7A8B4B518A4F1CA0098E018 /* MBDemoAppearanceContainer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
