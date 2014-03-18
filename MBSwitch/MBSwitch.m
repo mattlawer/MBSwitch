@@ -123,8 +123,10 @@
 - (void)setOn:(BOOL)on animated:(BOOL)animated {
     
     if (_on != on) {
+		[self willChangeValueForKey:@"on"];
         _on = on;
-        [self sendActionsForControlEvents:UIControlEventValueChanged];
+		[self didChangeValueForKey:@"on"];
+		[self sendActionsForControlEvents:UIControlEventValueChanged];
     }
 
     [CATransaction begin];
