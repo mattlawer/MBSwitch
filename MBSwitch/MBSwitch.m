@@ -164,15 +164,15 @@
             CGFloat from = show ? 0.0 : 1.0;
             CABasicAnimation *animateScale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
             animateScale.duration = 0.22;
-            animateScale.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(from, from, 1.0)];
-            animateScale.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(scale, scale, 1.0)];
+            animateScale.fromValue = @(from);
+            animateScale.toValue = @(scale);
             animateScale.removedOnCompletion = NO;
             animateScale.fillMode = kCAFillModeForwards;
             animateScale.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
             [_fillLayer addAnimation:animateScale forKey:@"animateScale"];
         }else {
             [_fillLayer removeAllAnimations];
-            _fillLayer.transform = CATransform3DMakeScale(scale,scale,1.0);
+            [_fillLayer setValue:@(scale) forKeyPath:@"transform.scale"];
         }
     }
 }
