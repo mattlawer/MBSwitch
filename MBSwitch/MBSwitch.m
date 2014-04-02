@@ -49,8 +49,13 @@
     }
 
     [self setBackgroundColor:[UIColor clearColor]];
-    self.onTintColor = [UIColor colorWithRed:0.27f green:0.85f blue:0.37f alpha:1.00f];
-    self.tintColor = [UIColor colorWithRed:0.90f green:0.90f blue:0.90f alpha:1.00f];
+    
+    _onTintColor = [[UIColor colorWithRed:0.27f green:0.85f blue:0.37f alpha:1.00f] retain];
+    [self setBacklayerOnTintColorIfNeeded];
+    
+    _tintColor = [[UIColor colorWithRed:0.90f green:0.90f blue:0.90f alpha:1.00f] retain];
+    [self setBacklayerTintColorIfNeeded];
+    
     _on = NO;
     _pressed = NO;
     _dragging = NO;
@@ -121,16 +126,18 @@
         _on = on;
         [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
+
+    [CATransaction begin];
     if (animated) {
-        [CATransaction begin];
         [CATransaction setAnimationDuration:0.3];
         [CATransaction setDisableActions:NO];
         _thumbLayer.frame = [self thumbFrameForState:_on];
-        [CATransaction commit];
     }else {
         [CATransaction setDisableActions:YES];
         _thumbLayer.frame = [self thumbFrameForState:_on];
     }
+    [CATransaction commit];
+
     [self setBackgroundOn:_on animated:animated];
     [self showFillLayer:!_on animated:animated];
 }
@@ -193,6 +200,11 @@
 - (void) setTintColor:(UIColor *)tintColor {
     [_tintColor autorelease];
     _tintColor = [tintColor retain];
+    [self setBacklayerTintColorIfNeeded];
+}
+
+- (void)setBacklayerTintColorIfNeeded
+{
     if (![[_backLayer valueForKey:@"isOn"] boolValue]) {
         _backLayer.fillColor = [_tintColor CGColor];
     }
@@ -201,6 +213,11 @@
 - (void) setOnTintColor:(UIColor *)onTintColor {
     [_onTintColor autorelease];
     _onTintColor = [onTintColor retain];
+    [self setBacklayerOnTintColorIfNeeded];
+}
+
+- (void)setBacklayerOnTintColorIfNeeded
+{
     if ([[_backLayer valueForKey:@"isOn"] boolValue]) {
         _backLayer.fillColor = [_onTintColor CGColor];
     }
@@ -220,6 +237,12 @@
 
 - (UIColor *) thumbTintColor {
     return [UIColor colorWithCGColor:_thumbLayer.fillColor];
+}
+
+- (void) setEnabled:(BOOL)enabled
+{
+    self.alpha = enabled ? 1.f : .5f;
+    [super setEnabled:enabled];
 }
 
 #pragma mark -
