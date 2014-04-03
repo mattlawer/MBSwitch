@@ -166,20 +166,24 @@
     BOOL isVisible = [[_fillLayer valueForKey:@"isVisible"] boolValue];
     if (isVisible != show) {
         [_fillLayer setValue:[NSNumber numberWithBool:show] forKey:@"isVisible"];
-        CGFloat scale = show ? 1.0 : 0.0;
-        if (animated) {
-            CGFloat from = show ? 0.0 : 1.0;
-            CABasicAnimation *animateScale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-            animateScale.duration = 0.22;
-            animateScale.fromValue = @(from);
-            animateScale.toValue = @(scale);
-            animateScale.removedOnCompletion = NO;
-            animateScale.fillMode = kCAFillModeForwards;
-            animateScale.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-            [_fillLayer addAnimation:animateScale forKey:@"animateScale"];
-        }else {
-            [_fillLayer removeAllAnimations];
-            [_fillLayer setValue:@(scale) forKeyPath:@"transform.scale"];
+        if (NSFoundationVersionNumber < NSFoundationVersionNumber_iOS_6_0) {
+            _fillLayer.opacity = show ? 1.0 : 0.0;
+        } else {
+            CGFloat scale = show ? 1.0 : 0.0;
+            if (animated) {
+                CGFloat from = show ? 0.0 : 1.0;
+                CABasicAnimation *animateScale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+                animateScale.duration = 0.22;
+                animateScale.fromValue = @(from);
+                animateScale.toValue = @(scale);
+                animateScale.removedOnCompletion = NO;
+                animateScale.fillMode = kCAFillModeForwards;
+                animateScale.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                [_fillLayer addAnimation:animateScale forKey:@"animateScale"];
+            } else {
+                [_fillLayer removeAllAnimations];
+                [_fillLayer setValue:@(scale) forKeyPath:@"transform.scale"];
+            }
         }
     }
 }
