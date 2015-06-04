@@ -21,4 +21,7 @@
 
 - (void)setOn:(BOOL)on animated:(BOOL)animated;
 
+- (void)setOnImageNamed:(NSString*)imageName;
+- (void)setOffImageNamed:(NSString*)imageName;
+
 @end

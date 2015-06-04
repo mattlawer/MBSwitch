@@ -14,6 +14,8 @@
     CAShapeLayer *_thumbLayer;
     CAShapeLayer *_fillLayer;
     CAShapeLayer *_backLayer;
+    CALayer *_onIMGLayer;
+    CALayer *_offIMGLayer;
     BOOL _dragging;
     BOOL _on;
 }
@@ -94,6 +96,9 @@
     _thumbLayer.shadowOpacity = 0.3;
     [self.layer addSublayer:_thumbLayer];
 
+    _onIMGLayer = [[CALayer layer] retain];
+    _offIMGLayer = [[CALayer layer] retain];
+    
 	UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                             action:@selector(tapped:)];
 	[tapGestureRecognizer setDelegate:self];
@@ -107,6 +112,28 @@
 
     [tapGestureRecognizer release];
     [panGestureRecognizer release];
+}
+
+
+#pragma mark -
+#pragma mark Images
+- (void)setOnImageNamed:(NSString*)imageName{
+
+    _onIMGLayer.contents = (id)[UIImage imageNamed:imageName].CGImage;
+    _onIMGLayer.backgroundColor = [[UIColor clearColor] CGColor];
+    _onIMGLayer.frame = CGRectMake(0.0, 0.0, _thumbLayer.frame.size.width, _thumbLayer.frame.size.height);
+    
+    [_thumbLayer addSublayer:_onIMGLayer];
+    [self setImagesOn:_on];
+}
+
+- (void)setOffImageNamed:(NSString*)imageName{
+    _offIMGLayer.contents = (id)[UIImage imageNamed:imageName].CGImage;
+    _offIMGLayer.backgroundColor = [[UIColor clearColor] CGColor];
+    _offIMGLayer.frame = CGRectMake(0.0, 0.0, _thumbLayer.frame.size.width, _thumbLayer.frame.size.height);
+    
+    [_thumbLayer addSublayer:_offIMGLayer];
+    [self setImagesOn:_on];
 }
 
 #pragma mark -
@@ -140,6 +167,23 @@
 
     [self setBackgroundOn:_on animated:animated];
     [self showFillLayer:!_on animated:animated];
+    [self setImagesOn:_on];
+}
+
+-(void)setImagesOn:(BOOL)on{
+    CALayer* animOut = nil;
+    CALayer* animIn = nil;
+    if(on){
+        animOut = _offIMGLayer;
+        animIn = _onIMGLayer;
+    }
+    else{
+        animOut = _onIMGLayer;
+        animIn = _offIMGLayer;
+    }
+
+    animOut.frame = CGRectMake(_thumbLayer.frame.size.width/2, _thumbLayer.frame.size.height/2, 0, 0);
+    animIn.frame = CGRectMake(0.0, 0.0, _thumbLayer.frame.size.width, _thumbLayer.frame.size.height);
 }
 
 - (void) setBackgroundOn:(BOOL)on animated:(BOOL)animated {
@@ -357,6 +401,8 @@
     [_thumbLayer release], _thumbLayer = nil;
     [_fillLayer release], _fillLayer = nil;
     [_backLayer release], _backLayer = nil;
+    [_onIMGLayer release], _onIMGLayer = nil;
+    [_offIMGLayer release], _offIMGLayer = nil;
     [super dealloc];
 }
 
