@@ -68,8 +68,7 @@
 }
 
 - (void) dealloc {
-    [_mbswitch2 release], _mbswitch2 = nil;
-    [super dealloc];
+    _mbswitch2 = nil;
 }
 
 @end

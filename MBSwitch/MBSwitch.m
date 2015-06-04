@@ -52,18 +52,18 @@
 
     [self setBackgroundColor:[UIColor clearColor]];
     
-    _onTintColor = [[UIColor colorWithRed:0.27f green:0.85f blue:0.37f alpha:1.00f] retain];
+    _onTintColor = [UIColor colorWithRed:0.27f green:0.85f blue:0.37f alpha:1.00f];
     [self setBacklayerOnTintColorIfNeeded];
     
-    _tintColor = [[UIColor colorWithRed:0.90f green:0.90f blue:0.90f alpha:1.00f] retain];
+    _tintColor = [UIColor colorWithRed:0.90f green:0.90f blue:0.90f alpha:1.00f];
     [self setBacklayerTintColorIfNeeded];
     
     _on = NO;
     _pressed = NO;
     _dragging = NO;
-
-
-    _backLayer = [[CAShapeLayer layer] retain];
+    
+    
+    _backLayer = [CAShapeLayer layer];
     _backLayer.backgroundColor = [[UIColor clearColor] CGColor];
     _backLayer.frame = self.bounds;
     _backLayer.cornerRadius = self.bounds.size.height/2.0;
@@ -72,8 +72,8 @@
     [_backLayer setValue:[NSNumber numberWithBool:NO] forKey:@"isOn"];
     _backLayer.fillColor = [_tintColor CGColor];
     [self.layer addSublayer:_backLayer];
-
-    _fillLayer = [[CAShapeLayer layer] retain];
+    
+    _fillLayer = [CAShapeLayer layer];
     _fillLayer.backgroundColor = [[UIColor clearColor] CGColor];
     _fillLayer.frame = CGRectInset(self.bounds, 1.5, 1.5);
     CGPathRef path = [UIBezierPath bezierPathWithRoundedRect:_fillLayer.bounds cornerRadius:floorf(_fillLayer.bounds.size.height/2.0)].CGPath;
@@ -81,9 +81,9 @@
     [_fillLayer setValue:[NSNumber numberWithBool:YES] forKey:@"isVisible"];
     _fillLayer.fillColor = [[UIColor whiteColor] CGColor];
     [self.layer addSublayer:_fillLayer];
-
-
-    _thumbLayer = [[CAShapeLayer layer] retain];
+    
+    
+    _thumbLayer = [CAShapeLayer layer];
     _thumbLayer.backgroundColor = [[UIColor clearColor] CGColor];
     _thumbLayer.frame = CGRectMake(2.0, 2.0, self.bounds.size.height-4.0, self.bounds.size.height-4.0);
     _thumbLayer.cornerRadius = _thumbLayer.frame.size.height/2.0;
@@ -95,23 +95,20 @@
     _thumbLayer.shadowRadius = 3.0;
     _thumbLayer.shadowOpacity = 0.3;
     [self.layer addSublayer:_thumbLayer];
-
-    _onIMGLayer = [[CALayer layer] retain];
-    _offIMGLayer = [[CALayer layer] retain];
     
-	UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                            action:@selector(tapped:)];
-	[tapGestureRecognizer setDelegate:self];
-	[self addGestureRecognizer:tapGestureRecognizer];
-
-	UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                                                                            action:@selector(toggleDragged:)];
+    _onIMGLayer = [CALayer layer];
+    _offIMGLayer = [CALayer layer];
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                           action:@selector(tapped:)];
+    [tapGestureRecognizer setDelegate:self];
+    [self addGestureRecognizer:tapGestureRecognizer];
+    
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                                                           action:@selector(toggleDragged:)];
     //[panGestureRecognizer requireGestureRecognizerToFail:tapGestureRecognizer];
-	[panGestureRecognizer setDelegate:self];
-	[self addGestureRecognizer:panGestureRecognizer];
-
-    [tapGestureRecognizer release];
-    [panGestureRecognizer release];
+    [panGestureRecognizer setDelegate:self];
+    [self addGestureRecognizer:panGestureRecognizer];
 }
 
 
@@ -246,8 +243,6 @@
 #pragma mark Appearance
 
 - (void) setTintColor:(UIColor *)tintColor {
-    [_tintColor autorelease];
-    _tintColor = [tintColor retain];
     [self setBacklayerTintColorIfNeeded];
 }
 
@@ -259,8 +254,7 @@
 }
 
 - (void) setOnTintColor:(UIColor *)onTintColor {
-    [_onTintColor autorelease];
-    _onTintColor = [onTintColor retain];
+    _onTintColor = onTintColor;
     [self setBacklayerOnTintColorIfNeeded];
 }
 
@@ -298,32 +292,32 @@
 
 - (void)tapped:(UITapGestureRecognizer *)gesture
 {
-	if (gesture.state == UIGestureRecognizerStateEnded)
-		[self setOn:!self.on animated:YES];
+    if (gesture.state == UIGestureRecognizerStateEnded)
+        [self setOn:!self.on animated:YES];
 }
 
 - (void)toggleDragged:(UIPanGestureRecognizer *)gesture
 {
-	CGFloat minToggleX = 1.0;
-	CGFloat maxToggleX = self.bounds.size.width-self.bounds.size.height+1.0;
-
-	if (gesture.state == UIGestureRecognizerStateBegan)
-	{
-		self.pressed = YES;
+    CGFloat minToggleX = 1.0;
+    CGFloat maxToggleX = self.bounds.size.width-self.bounds.size.height+1.0;
+    
+    if (gesture.state == UIGestureRecognizerStateBegan)
+    {
+        self.pressed = YES;
         _dragging = YES;
-	}
-	else if (gesture.state == UIGestureRecognizerStateChanged)
-	{
-		CGPoint translation = [gesture translationInView:self];
-
-		[CATransaction setDisableActions:YES];
-
-		self.pressed = YES;
-
-		CGFloat newX = _thumbLayer.frame.origin.x + translation.x;
-		if (newX < minToggleX) newX = minToggleX;
-		if (newX > maxToggleX) newX = maxToggleX;
-		_thumbLayer.frame = CGRectMake(newX,
+    }
+    else if (gesture.state == UIGestureRecognizerStateChanged)
+    {
+        CGPoint translation = [gesture translationInView:self];
+        
+        [CATransaction setDisableActions:YES];
+        
+        self.pressed = YES;
+        
+        CGFloat newX = _thumbLayer.frame.origin.x + translation.x;
+        if (newX < minToggleX) newX = minToggleX;
+        if (newX > maxToggleX) newX = maxToggleX;
+        _thumbLayer.frame = CGRectMake(newX,
                                        _thumbLayer.frame.origin.y,
                                        _thumbLayer.frame.size.width,
                                        _thumbLayer.frame.size.height);
@@ -335,50 +329,50 @@
                   && [[_backLayer valueForKey:@"isOn"] boolValue]){
             [self setBackgroundOn:NO animated:YES];
         }
-
-
-		[gesture setTranslation:CGPointZero inView:self];
-	}
-	else if (gesture.state == UIGestureRecognizerStateEnded)
-	{
-		CGFloat toggleCenter = CGRectGetMidX(_thumbLayer.frame);
+        
+        
+        [gesture setTranslation:CGPointZero inView:self];
+    }
+    else if (gesture.state == UIGestureRecognizerStateEnded)
+    {
+        CGFloat toggleCenter = CGRectGetMidX(_thumbLayer.frame);
         [self setOn:(toggleCenter > CGRectGetMidX(self.bounds)) animated:YES];
         _dragging = NO;
         self.pressed = NO;
-	}
-
-	CGPoint locationOfTouch = [gesture locationInView:self];
-	if (CGRectContainsPoint(self.bounds, locationOfTouch))
-		[self sendActionsForControlEvents:UIControlEventTouchDragInside];
-	else
-		[self sendActionsForControlEvents:UIControlEventTouchDragOutside];
+    }
+    
+    CGPoint locationOfTouch = [gesture locationInView:self];
+    if (CGRectContainsPoint(self.bounds, locationOfTouch))
+        [self sendActionsForControlEvents:UIControlEventTouchDragInside];
+    else
+        [self sendActionsForControlEvents:UIControlEventTouchDragOutside];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	[super touchesBegan:touches withEvent:event];
-
+    [super touchesBegan:touches withEvent:event];
+    
     self.pressed = YES;
-
-	[self sendActionsForControlEvents:UIControlEventTouchDown];
+    
+    [self sendActionsForControlEvents:UIControlEventTouchDown];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	[super touchesEnded:touches withEvent:event];
+    [super touchesEnded:touches withEvent:event];
     if (!_dragging) {
         self.pressed = NO;
     }
-	[self sendActionsForControlEvents:UIControlEventTouchUpInside];
+    [self sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	[super touchesCancelled:touches withEvent:event];
+    [super touchesCancelled:touches withEvent:event];
     if (!_dragging) {
         self.pressed = NO;
     }
-	[self sendActionsForControlEvents:UIControlEventTouchUpOutside];
+    [self sendActionsForControlEvents:UIControlEventTouchUpOutside];
 }
 
 #pragma mark -
@@ -395,15 +389,13 @@
 #pragma mark Dealloc
 
 - (void) dealloc {
-    [_tintColor release], _tintColor = nil;
-    [_onTintColor release], _onTintColor = nil;
-
-    [_thumbLayer release], _thumbLayer = nil;
-    [_fillLayer release], _fillLayer = nil;
-    [_backLayer release], _backLayer = nil;
-    [_onIMGLayer release], _onIMGLayer = nil;
-    [_offIMGLayer release], _offIMGLayer = nil;
-    [super dealloc];
+    _tintColor = nil;
+    _onTintColor = nil;
+    _thumbLayer = nil;
+    _fillLayer = nil;
+    _backLayer = nil;
+    _onIMGLayer = nil;
+    _offIMGLayer = nil;
 }
 
 @end
