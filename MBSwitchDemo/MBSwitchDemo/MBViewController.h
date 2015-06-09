@@ -15,5 +15,6 @@
 @property (nonatomic, retain) MBSwitch *mbswitch2;
 @property (nonatomic, retain) IBOutlet MBSwitch *mbswitch3;
 @property (nonatomic, retain) IBOutlet MBSwitch *mbswitch4;
+@property (nonatomic, retain) IBOutlet MBSwitch *mbswitch5;
 
 @end
